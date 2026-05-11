@@ -241,7 +241,6 @@
     border: 1.5px solid rgba(255,255,255,0.72);
     box-shadow: 0 20px 60px rgba(10,30,80,0.16), 0 4px 16px rgba(0,0,0,0.06), 0 1.5px 0 rgba(255,255,255,0.88) inset;
     animation: dropdownIn 0.18s cubic-bezier(0.22,1,0.36,1) both;
-    position: relative;
   }
   .panel-glass::before {
     content: ''; position: absolute; inset: 0; border-radius: inherit;

@@ -491,7 +491,7 @@ export function DashboardLayout() {
       {/* ── Main ── */}
       <div className="flex-1 flex flex-col overflow-visible min-w-0">
 
-        <header className="header-glass h-[62px] shrink-0 flex items-center justify-between px-6 gap-3 rounded-2xl mb-0.5">
+        <header className="header-glass relative z-10 h-[62px] shrink-0 flex items-center justify-between px-6 gap-3 rounded-2xl mb-0.5">
           <div className="flex items-center">
             <button
               className="period-selector-glass flex items-center gap-2 px-[14px] py-2 rounded-[10px] text-sm font-semibold text-[#0c1f3f] cursor-pointer font-sans border-none"
