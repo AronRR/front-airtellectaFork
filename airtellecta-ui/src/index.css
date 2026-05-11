@@ -277,7 +277,7 @@
   html[data-theme="dark"] .modal-overlay-glass { background: rgba(0,0,5,0.65); }
 
   .config-modal-glass {
-    background: linear-gradient(145deg, rgba(255,255,255,0.88) 0%, rgba(228,242,255,0.72) 100%);
+    background: linear-gradient(145deg, rgba(255,255,255,0.88) 0%, rgba(255, 255, 255, 0.72) 100%);
     backdrop-filter: blur(32px) saturate(1.8); -webkit-backdrop-filter: blur(32px) saturate(1.8);
     border: 1.5px solid rgba(255,255,255,0.72);
     box-shadow: 0 24px 80px rgba(10,30,80,0.20), 0 1.5px 0 rgba(255,255,255,0.90) inset;
@@ -325,7 +325,7 @@
 
   /* ── Metric cards ───────────────────────────────────────── */
   .metric-card-glass {
-    background: linear-gradient(145deg, rgba(255,255,255,0.70) 0%, rgba(228,242,255,0.48) 100%);
+    background: linear-gradient(145deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.955) 100%);
     backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5);
     border: 1.5px solid rgba(255,255,255,0.58);
     box-shadow: 0 4px 24px rgba(30,80,180,0.07), 0 1px 0 rgba(255,255,255,0.80) inset;
@@ -334,7 +334,7 @@
   .metric-card-glass:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(30,80,180,0.11), 0 1px 0 rgba(255,255,255,0.80) inset; }
   .metric-card-glass--critical {
     border-color: rgba(239,68,68,0.45);
-    background: linear-gradient(145deg, rgba(255,255,255,0.72) 0%, rgba(255,235,235,0.48) 100%);
+    background: linear-gradient(145deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.896) 100%);
     box-shadow: 0 4px 24px rgba(239,68,68,0.10), 0 1px 0 rgba(255,255,255,0.80) inset;
   }
   .metric-card-glass--warning { border-color: rgba(217,119,6,0.30); }
