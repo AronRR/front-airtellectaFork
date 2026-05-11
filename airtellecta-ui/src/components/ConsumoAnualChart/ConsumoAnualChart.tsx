@@ -29,6 +29,8 @@ const CustomTooltip = ({ active, payload, label }: TipProps) => {
       <p className="text-slate-500 dark:text-white/50">
         Consumo: <strong>{payload[0].value}%</strong>
       </p>
+      <p className="font-bold text-slate-700 dark:text-white mb-0.5">{label}{entry?.proyectado ? ' (proyectado)' : ''}</p>
+      <p className="text-slate-500 dark:text-white/50">Consumo: <strong>{payload[0].value}%</strong></p>
     </div>
   )
 }
@@ -54,6 +56,10 @@ export function ConsumoAnualChart() {
           <Bar dataKey="valor" radius={[5, 5, 0, 0]}>
             {DATA.map((entry) => (
               <Cell key={entry.año} fill={entry.proyectado ? 'rgba(37,99,235,0.35)' : '#2563eb'} />
+              <Cell
+                key={entry.año}
+                fill={entry.proyectado ? 'rgba(37,99,235,0.35)' : '#2563eb'}
+              />
             ))}
           </Bar>
         </BarChart>
