@@ -66,10 +66,10 @@ export function ResumenNacional() {
       {/* ── Fila 1 — 4 KPI cards ── */}
       <div className="grid grid-cols-4 gap-4">
         <KpiCard
-          label="Gasto en campañas"
-          value="$2.4M"
-          description="presupuesto 2025"
-          testId="kpi-gasto"
+          label="Edad de inicio"
+          value="14.3"
+          description=" años promedio nacional"
+          testId="kpi-promedio-edad"
         />
         <KpiCard
           label="Costo en salud pública"
@@ -79,16 +79,16 @@ export function ResumenNacional() {
           testId="kpi-salud"
         />
         <KpiCard
-          label="Ahorro Proyectado"
-          value="$2.8M"
-          description="con segmentación AI"
+          label="Vapeadores activos"
+          value="$5.2M"
+          description="+18% vs 2023"
           highlight
           icon={<SparkleIcon />}
-          testId="kpi-ahorro"
+          testId="kpi-vapeadores"
         />
         <KpiCard
-          label="Consumo 18-25"
-          value="18.5%"
+          label="Hospitalizaciones"
+          value="3,847"
           description="contexto epidemiológico"
           icon={<TrendUpIcon />}
           testId="kpi-consumo"

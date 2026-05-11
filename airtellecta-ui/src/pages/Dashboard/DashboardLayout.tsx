@@ -369,7 +369,7 @@ function UserMenu() {
 
 const NAV_ITEMS = [
   { label: 'Resumen Nacional', path: '/dashboard',            end: true  },
-  { label: 'Mapa de Calor',    path: '/dashboard/mapa',       end: false },
+  { label: 'Mapa de Vulnerabilidad',    path: '/dashboard/mapa',       end: false },
   { label: 'Tendencias',       path: '/dashboard/tendencias', end: false },
   { label: 'Campañas',         path: '/dashboard/campanas',   end: false },
   { label: 'Fuentes',          path: '/dashboard/fuentes',    end: false },
