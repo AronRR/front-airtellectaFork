@@ -1,6 +1,8 @@
 import { EstadoCard, type EstadoCardProps } from '../../components/EstadoCard/EstadoCard'
 import { MapaVulnerabilidad }               from '../../components/MapaVulnerabilidad/MapaVulnerabilidad'
 import { RankingEstados }                   from '../../components/RankingEstados/RankingEstados'
+import { DemograficoChart }                 from '../../components/DemograficoChart/DemograficoChart'
+import { ConsumoAnualChart }                from '../../components/ConsumoAnualChart/ConsumoAnualChart'
 
 const ESTADOS_RIESGO: EstadoCardProps[] = [
   { estado: 'Colima',          consumo: '28.4%', vsNacional: '+9.9pp', poblacion: '198K', riesgo: 'critico' },
@@ -31,6 +33,12 @@ export function MapaCalor() {
       <div className="grid grid-cols-2 gap-4">
         <MapaVulnerabilidad />
         <RankingEstados />
+      </div>
+
+      {/* ── Fila 3 — Demográficos + Consumo anual ── */}
+      <div className="grid grid-cols-2 gap-4">
+        <DemograficoChart />
+        <ConsumoAnualChart />
       </div>
 
     </div>
