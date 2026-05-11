@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { EmptyState } from '../../components/EmptyState/EmptyState'
 import { PrimaryButton } from '../../components/PrimaryButton/PrimaryButton'
 
@@ -45,23 +45,6 @@ const LogoutIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
     <polyline points="16,17 21,12 16,7" /><line x1="21" y1="12" x2="9" y2="12" />
-  </svg>
-)
-const CalendarIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="4" width="18" height="18" rx="2" />
-    <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
-  </svg>
-)
-const ChevronsIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M8 9l4-4 4 4M8 15l4 4 4-4" />
-  </svg>
-)
-const DownloadIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7,10 12,15 17,10" /><line x1="12" y1="15" x2="12" y2="3" />
   </svg>
 )
 const BellIcon = () => (
@@ -435,6 +418,14 @@ const NAV_ITEMS = [
 // ── Layout ─────────────────────────────────────────────────────────────────
 
 export function DashboardLayout() {
+  const location = useLocation()
+  const currentNav = NAV_ITEMS.find((item) =>
+    item.end
+      ? location.pathname === item.path
+      : location.pathname.startsWith(item.path)
+  )
+  const pageLabel = currentNav?.label ?? 'Dashboard'
+
   return (
     <div className="dashboard-bg flex h-dvh overflow-hidden p-4 gap-[14px]">
 
@@ -491,31 +482,24 @@ export function DashboardLayout() {
       {/* ── Main ── */}
       <div className="flex-1 flex flex-col overflow-visible min-w-0">
 
-        <header className="header-glass relative z-10 h-[62px] shrink-0 flex items-center justify-between px-6 gap-3 rounded-2xl mb-0.5">
-          <div className="flex items-center">
-            <button
-              className="period-selector-glass flex items-center gap-2 px-[14px] py-2 rounded-[10px] text-sm font-semibold text-[#0c1f3f] cursor-pointer font-sans border-none"
-              type="button"
-              data-testid="period-selector"
-            >
-              <span className="text-[#5580a8]"><CalendarIcon /></span>
-              <span>Definir período</span>
-              <ChevronsIcon />
-            </button>
+        <header className="relative z-10 h-[62px] shrink-0 flex items-center justify-between px-6">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.9px] uppercase text-[#5580a8] leading-none dark:text-white/35">
+              Airtellecta
+            </p>
+            <h1 className="font-display text-[22px] font-extrabold tracking-[-0.3px] text-[#0c1f3f] leading-tight dark:text-white">
+              {pageLabel}
+            </h1>
           </div>
 
-          <div className="flex items-center">
-            <button
-              className="btn-export-glass flex items-center gap-2 px-[18px] py-[9px] rounded-[10px] border-none text-sm font-bold font-sans cursor-pointer tracking-[0.2px]"
-              type="button"
-              data-testid="btn-export"
-            >
-              <DownloadIcon />
-              Exportar Reporte
+          <div className="flex items-center gap-3">
+            <button className="period-selector-glass flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-[13px] font-semibold text-[#0c1f3f] dark:text-white/80 cursor-pointer font-sans border-none" type="button" data-testid="filter-year">
+              Año 2025 <ChevronDownIcon />
             </button>
-          </div>
-
-          <div className="flex items-center gap-3 ml-auto">
+            <button className="period-selector-glass flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-[13px] font-semibold text-[#0c1f3f] dark:text-white/80 cursor-pointer font-sans border-none" type="button" data-testid="filter-region">
+              Región <ChevronDownIcon />
+            </button>
+            <div className="w-px h-5 bg-[rgba(180,210,240,0.50)] dark:bg-white/10 mx-1" />
             <HeaderPanel variant="alerts" />
             <HeaderPanel variant="notifications" />
             <UserMenu />

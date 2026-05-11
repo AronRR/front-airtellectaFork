@@ -348,6 +348,17 @@
   }
   html[data-theme="dark"] .metric-card-glass--warning { border-color: rgba(217,119,6,0.25); }
 
+  /* Highlight card (green — ahorro proyectado) */
+  .metric-card-glass--highlight {
+    border-color: rgba(34, 197, 94, 0.45);
+    background: linear-gradient(145deg, rgba(240,253,244,0.88) 0%, rgba(187,247,208,0.55) 100%);
+    box-shadow: 0 4px 24px rgba(34,197,94,0.12), 0 1px 0 rgba(255,255,255,0.80) inset;
+  }
+  html[data-theme="dark"] .metric-card-glass--highlight {
+    border-color: rgba(34, 197, 94, 0.30);
+    background: linear-gradient(145deg, rgba(34,197,94,0.10) 0%, rgba(34,197,94,0.05) 100%);
+  }
+
   /* Icon variant classes — replaces inline style={{}} */
   .metric-icon-blue  { background: rgba(37,99,235,0.10);  color: #2563eb; }
   .metric-icon-red   { background: rgba(239,68,68,0.10);  color: #ef4444; }
