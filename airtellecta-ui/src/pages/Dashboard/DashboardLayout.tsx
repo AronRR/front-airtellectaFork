@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import './DashboardLayout.css'
+import { EmptyState } from '../../components/EmptyState/EmptyState'
+import { PrimaryButton } from '../../components/PrimaryButton/PrimaryButton'
 
 // ── Icons ──────────────────────────────────────────────────────────────────
 
@@ -12,160 +13,119 @@ const LogoIcon = () => (
     <path d="M5 25.5L20 33L35 25.5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.5" />
   </svg>
 )
-
 const GridIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="3" width="7" height="7" rx="1.5" />
-    <rect x="14" y="3" width="7" height="7" rx="1.5" />
-    <rect x="3" y="14" width="7" height="7" rx="1.5" />
-    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    <rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" />
   </svg>
 )
-
 const MapIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2" />
-    <line x1="8" y1="2" x2="8" y2="18" />
-    <line x1="16" y1="6" x2="16" y2="22" />
+    <line x1="8" y1="2" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="22" />
   </svg>
 )
-
 const TrendingIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="23,6 13.5,15.5 8.5,10.5 1,18" />
-    <polyline points="17,6 23,6 23,12" />
+    <polyline points="23,6 13.5,15.5 8.5,10.5 1,18" /><polyline points="17,6 23,6 23,12" />
   </svg>
 )
-
 const CampaignIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 11l18-5v12L3 14v-3z" />
-    <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+    <path d="M3 11l18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
   </svg>
 )
-
 const DatabaseIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <ellipse cx="12" cy="5" rx="9" ry="3" />
-    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
   </svg>
 )
-
 const LogoutIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-    <polyline points="16,17 21,12 16,7" />
-    <line x1="21" y1="12" x2="9" y2="12" />
+    <polyline points="16,17 21,12 16,7" /><line x1="21" y1="12" x2="9" y2="12" />
   </svg>
 )
-
 const CalendarIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="3" y="4" width="18" height="18" rx="2" />
-    <line x1="16" y1="2" x2="16" y2="6" />
-    <line x1="8" y1="2" x2="8" y2="6" />
-    <line x1="3" y1="10" x2="21" y2="10" />
+    <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
   </svg>
 )
-
 const ChevronsIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M8 9l4-4 4 4M8 15l4 4 4-4" />
   </svg>
 )
-
 const DownloadIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7,10 12,15 17,10" />
-    <line x1="12" y1="15" x2="12" y2="3" />
+    <polyline points="7,10 12,15 17,10" /><line x1="12" y1="15" x2="12" y2="3" />
   </svg>
 )
-
 const BellIcon = () => (
   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" />
   </svg>
 )
-
 const ChevronDownIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="6,9 12,15 18,9" />
   </svg>
 )
-
 const CheckIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="20,6 9,17 4,12" />
   </svg>
 )
-
 const SettingsIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="3" />
     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
   </svg>
 )
-
 const AppearanceIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="5" />
-    <line x1="12" y1="1" x2="12" y2="3" />
-    <line x1="12" y1="21" x2="12" y2="23" />
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-    <line x1="1" y1="12" x2="3" y2="12" />
-    <line x1="21" y1="12" x2="23" y2="12" />
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+    <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
   </svg>
 )
-
 const AlertTriangleIcon = () => (
   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-    <line x1="12" y1="9" x2="12" y2="13" />
-    <line x1="12" y1="17" x2="12.01" y2="17" />
+    <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
   </svg>
 )
-
 const SearchPanelIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="11" r="8" />
-    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
   </svg>
 )
-
 const FilterIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="21" y1="6" x2="3" y2="6" />
-    <line x1="17" y1="12" x2="7" y2="12" />
-    <line x1="13" y1="18" x2="11" y2="18" />
+    <line x1="21" y1="6" x2="3" y2="6" /><line x1="17" y1="12" x2="7" y2="12" /><line x1="13" y1="18" x2="11" y2="18" />
   </svg>
 )
-
 const LogoutMenuIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-    <polyline points="16,17 21,12 16,7" />
-    <line x1="21" y1="12" x2="9" y2="12" />
+    <polyline points="16,17 21,12 16,7" /><line x1="21" y1="12" x2="9" y2="12" />
   </svg>
 )
-
 const XIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 )
-
 const InfoIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
   </svg>
 )
-
 const SunIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="5" />
@@ -175,13 +135,11 @@ const SunIcon = () => (
     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
   </svg>
 )
-
 const MoonIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
   </svg>
 )
-
 const MonitorIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -189,7 +147,8 @@ const MonitorIcon = () => (
   </svg>
 )
 
-//Paneles del header (notificaciones y alertas)
+// ── Header Panel ───────────────────────────────────────────────────────────
+
 type PanelVariant = 'notifications' | 'alerts'
 
 function HeaderPanel({ variant }: { variant: PanelVariant }) {
@@ -207,50 +166,47 @@ function HeaderPanel({ variant }: { variant: PanelVariant }) {
   }, [open])
 
   return (
-    <div className="panel-wrap" ref={ref}>
+    <div className="relative" ref={ref}>
       <button
-        className={`icon-btn${open ? ' icon-btn--open' : ''}`}
+        className="icon-btn-glass relative w-9 h-9 flex items-center justify-center rounded-[9px] cursor-pointer border-none"
         type="button"
         aria-label={isNotif ? 'Notificaciones' : 'Alertas'}
         onClick={() => setOpen((v) => !v)}
+        data-open={open}
+        data-testid={isNotif ? 'btn-notifications' : 'btn-alerts'}
       >
         {isNotif ? <BellIcon /> : <AlertTriangleIcon />}
-        <span className="icon-btn-badge" />
+        <span className="absolute top-[7px] right-[7px] w-2 h-2 rounded-full bg-[#f97316] border-[1.5px] border-white/90" />
       </button>
 
       {open && (
-        <div className="panel-dropdown">
-          {/* Header del panel */}
-          <div className="panel-header">
-            <h3 className="panel-title">{isNotif ? 'Notificaciones' : 'Alertas'}</h3>
-            <button className="panel-settings-btn" type="button" aria-label="Configuración">
+        <div className="panel-glass absolute top-[calc(100%+10px)] right-0 w-[340px] z-[200] rounded-[20px] overflow-hidden">
+          <div className="flex items-center justify-between px-[18px] pt-5 pb-[14px]">
+            <h3 className="font-display text-[20px] font-extrabold text-[#0c1f3f] m-0 tracking-[-0.3px] dark:text-white">
+              {isNotif ? 'Notificaciones' : 'Alertas'}
+            </h3>
+            <button className="panel-icon-btn-glass w-[34px] h-[34px] flex items-center justify-center rounded-[9px] border-none cursor-pointer" type="button" aria-label="Configuración">
               <SettingsIcon />
             </button>
           </div>
 
-          {/* Barra de búsqueda */}
-          <div className="panel-search-row">
-            <label className="panel-search">
-              <SearchPanelIcon />
-              <input className="panel-search-input" placeholder="Buscar" />
+          <div className="flex items-center gap-2 px-[14px] pb-4">
+            <label className="panel-search-glass flex-1 flex items-center gap-2 px-[14px] py-[9px] rounded-[12px] cursor-text">
+              <span className="text-[#8baac8] shrink-0"><SearchPanelIcon /></span>
+              <input className="flex-1 border-none outline-none bg-transparent text-sm text-[#0c1f3f] font-sans placeholder:text-[#a0b8d0] dark:text-white/80 dark:placeholder:text-white/25" placeholder="Buscar" />
             </label>
-            <button className="panel-filter-btn" type="button" aria-label="Filtrar">
+            <button className="panel-icon-btn-glass w-[40px] h-[40px] shrink-0 flex items-center justify-center rounded-[12px] border-none cursor-pointer" type="button" aria-label="Filtrar">
               <FilterIcon />
             </button>
           </div>
 
-          {/* Estado vacío */}
-          <div className="panel-empty">
+          <div className="flex flex-col items-center justify-center px-6 pt-9 pb-11 gap-[18px]">
             {isNotif ? (
-              <p className="panel-empty-text">Sin notificaciones</p>
+              <EmptyState title="Sin notificaciones" description="No tienes notificaciones pendientes por el momento." />
             ) : (
               <>
-                <p className="panel-empty-text">
-                  Tus alertas de consumo<br />aparecerán aquí.
-                </p>
-                <button className="panel-create-btn" type="button">
-                  Crear alerta
-                </button>
+                <EmptyState title="Sin alertas" description="Tus alertas de consumo aparecerán aquí." />
+                <PrimaryButton label="Crear alerta" onClick={() => {}} />
               </>
             )}
           </div>
@@ -260,70 +216,80 @@ function HeaderPanel({ variant }: { variant: PanelVariant }) {
   )
 }
 
+// ── Config Modal ───────────────────────────────────────────────────────────
 
 function ConfigModal({ onClose }: { onClose: () => void }) {
   const [displayName, setDisplayName] = useState('Usuario')
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="config-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overlay-glass fixed inset-0 z-[500] flex items-center justify-center" onClick={onClose}>
+      <div className="config-modal-glass w-full max-w-[460px] rounded-[22px] overflow-hidden mx-4" onClick={(e) => e.stopPropagation()}>
 
-        <div className="config-modal-header">
-          <h2 className="config-modal-title">Configuración de cuenta</h2>
-          <button className="modal-close-btn" type="button" onClick={onClose}>
+        <div className="flex items-center justify-between px-[22px] pt-[22px] pb-4 border-b border-[rgba(180,210,240,0.30)] dark:border-white/[0.07]">
+          <h2 className="font-display text-[18px] font-extrabold text-[#0c1f3f] m-0 dark:text-white">
+            Configuración de cuenta
+          </h2>
+          <button className="btn-modal-close-glass w-[30px] h-[30px] flex items-center justify-center rounded-[8px]" type="button" onClick={onClose}>
             <XIcon />
           </button>
         </div>
 
-        <div className="config-modal-body">
-          {/* Perfil */}
-          <div className="config-section">
-            <h3 className="config-section-title">Perfil</h3>
-
-            <div className="config-field">
-              <label className="config-label">Nombre de usuario</label>
+        <div className="px-[22px] py-[18px] flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
+            <h3 className="text-[11px] font-bold tracking-[0.8px] uppercase text-[#7a9ab8] m-0 dark:text-white/30">
+              Perfil
+            </h3>
+            <div className="flex flex-col gap-[6px]">
+              <label className="text-[13px] font-semibold text-[#1e3a5f] dark:text-white/60">Nombre de usuario</label>
               <input
-                className="config-input"
+                className="config-input-glass px-[14px] py-[10px] rounded-[10px] text-sm text-[#0c1f3f] font-sans w-full"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="Tu nombre"
+                data-testid="config-display-name"
               />
             </div>
-
-            <div className="config-field">
-              <label className="config-label">Rol</label>
-              <input className="config-input config-input--readonly" value="Cargo" readOnly />
-              <span className="config-hint">Asignado por el administrador del sistema</span>
+            <div className="flex flex-col gap-[6px]">
+              <label className="text-[13px] font-semibold text-[#1e3a5f] dark:text-white/60">Rol</label>
+              <input className="config-input-glass px-[14px] py-[10px] rounded-[10px] text-sm font-sans w-full" value="Cargo" readOnly />
+              <span className="text-[11px] text-[#8aaac5] dark:text-white/25">
+                Asignado por el administrador del sistema
+              </span>
             </div>
           </div>
 
-          {/* Seguridad */}
-          <div className="config-section">
-            <h3 className="config-section-title">Seguridad</h3>
-            <div className="config-notice">
-              <span className="config-notice-icon"><InfoIcon /></span>
-              <p>El cambio de contraseña en este sistema requiere autorización de un administrador. Contacta al responsable de tu institución para realizar esta solicitud.</p>
+          <div className="flex flex-col gap-3">
+            <h3 className="text-[11px] font-bold tracking-[0.8px] uppercase text-[#7a9ab8] m-0 dark:text-white/30">
+              Seguridad
+            </h3>
+            <div className="flex items-start gap-2.5 px-[14px] py-3 rounded-[10px] bg-[rgba(219,234,254,0.50)] border border-[rgba(147,197,253,0.45)] dark:bg-white/[0.05] dark:border-[rgba(147,197,253,0.20)]">
+              <span className="shrink-0 text-[#2563eb] mt-px dark:text-[#60a5fa]"><InfoIcon /></span>
+              <p className="text-[13px] text-[#1e3a5f] leading-[1.5] m-0 dark:text-white/50">
+                El cambio de contraseña en este sistema requiere autorización de un administrador. Contacta al responsable de tu institución para realizar esta solicitud.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="config-modal-footer">
-          <button className="config-cancel-btn" type="button" onClick={onClose}>Cancelar</button>
-          <button className="config-save-btn" type="button">Guardar cambios</button>
+        <div className="flex items-center justify-end gap-2.5 px-[22px] py-[14px] pb-5 border-t border-[rgba(180,210,240,0.25)] dark:border-white/[0.06]">
+          <button className="btn-cancel-glass px-[18px] py-[9px] rounded-[10px] text-sm font-semibold font-sans border-none" type="button" onClick={onClose}>
+            Cancelar
+          </button>
+          <PrimaryButton label="Guardar cambios" onClick={() => {}} />
         </div>
       </div>
     </div>
   )
 }
 
+// ── User Menu ──────────────────────────────────────────────────────────────
 
 type Theme = 'light' | 'dark' | 'auto'
-
 const THEME_LABELS: Record<Theme, string> = { light: 'Claro', dark: 'Oscuro', auto: 'Auto' }
 const THEME_OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
-  { value: 'light', label: 'Claro',   icon: <SunIcon /> },
-  { value: 'dark',  label: 'Oscuro',  icon: <MoonIcon /> },
-  { value: 'auto',  label: 'Auto',    icon: <MonitorIcon /> },
+  { value: 'light', label: 'Claro',  icon: <SunIcon /> },
+  { value: 'dark',  label: 'Oscuro', icon: <MoonIcon /> },
+  { value: 'auto',  label: 'Auto',   icon: <MonitorIcon /> },
 ]
 
 function applyTheme(t: Theme) {
@@ -335,13 +301,10 @@ function UserMenu() {
   const [open, setOpen] = useState(false)
   const [showConfig, setShowConfig] = useState(false)
   const [showAppearance, setShowAppearance] = useState(false)
-  const [theme, setTheme] = useState<Theme>(() => {
-    return (localStorage.getItem('airtellecta-theme') as Theme) ?? 'auto'
-  })
+  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('airtellecta-theme') as Theme) ?? 'auto')
   const ref = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
-  // Apply theme on mount + change
   useEffect(() => {
     applyTheme(theme)
     localStorage.setItem('airtellecta-theme', theme)
@@ -352,7 +315,6 @@ function UserMenu() {
     return () => mq.removeEventListener('change', handler)
   }, [theme])
 
-  // Click outside to close dropdown
   useEffect(() => {
     if (!open) return
     const handler = (e: MouseEvent) => {
@@ -364,39 +326,41 @@ function UserMenu() {
 
   return (
     <>
-      <div className="user-menu-wrap" ref={ref}>
+      <div className="relative" ref={ref}>
         <button
-          className={`user-info${open ? ' user-info--open' : ''}`}
+          className="user-info-glass flex items-center gap-2.5 py-[5px] pl-2 pr-3 rounded-[12px] cursor-pointer font-sans border-none"
           type="button"
           onClick={() => setOpen((v) => !v)}
+          data-open={open}
+          data-testid="user-menu-btn"
         >
-          <div className="user-details">
-            <span className="user-name">Usuario</span>
-            <span className="user-role">Cargo</span>
+          <div className="flex flex-col gap-px text-right">
+            <span className="text-[13px] font-bold text-[#0c1f3f] leading-[1.2] dark:text-white">Usuario</span>
+            <span className="text-[11px] text-[#5580a8] leading-[1.2] dark:text-white/45">Cargo</span>
           </div>
-          <div className="user-avatar">US</div>
+          <div className="avatar-glass w-8 h-8 rounded-full text-white text-[12px] font-bold flex items-center justify-center shrink-0 font-display">
+            US
+          </div>
           <ChevronDownIcon />
         </button>
 
         {open && (
-          <div className="user-dropdown">
-            {/* Identidad */}
-            <div className="dropdown-section">
-              <div className="dropdown-identity">
-                <span className="dropdown-check"><CheckIcon /></span>
+          <div className="dropdown-glass absolute top-[calc(100%+8px)] right-0 min-w-[230px] z-[200] rounded-2xl overflow-hidden">
+            <div className="p-[6px]">
+              <div className="flex items-center gap-2.5 py-2.5 px-2 rounded-[10px]">
+                <span className="flex items-center text-[#1344c4] shrink-0"><CheckIcon /></span>
                 <div>
-                  <p className="dropdown-identity-name">Usuario</p>
-                  <p className="dropdown-identity-id">ID-AIRTELLECTA</p>
+                  <p className="text-sm font-bold text-[#0c1f3f] m-0 leading-[1.3] dark:text-white">Usuario</p>
+                  <p className="text-[11px] text-[#7a9ab8] m-0 tracking-[0.5px] leading-[1.3] dark:text-white/30">ID-AIRTELLECTA</p>
                 </div>
               </div>
             </div>
 
-            <div className="dropdown-divider" />
+            <div className="h-px bg-[rgba(180,210,240,0.35)] mx-[6px] dark:bg-white/[0.07]" />
 
-            {/* Acciones */}
-            <div className="dropdown-section">
+            <div className="p-[6px]">
               <button
-                className="dropdown-item"
+                className="w-full flex items-center gap-2.5 px-3 py-[9px] rounded-[10px] border-none bg-transparent text-sm font-medium text-[#0c1f3f] cursor-pointer font-sans text-left transition-colors hover:bg-[rgba(26,86,219,0.08)] hover:text-[#1344c4] dark:text-white/70 dark:hover:bg-white/[0.07] dark:hover:text-white [&>svg]:text-[#5580a8] [&:hover>svg]:text-[#1344c4]"
                 type="button"
                 onClick={() => { setOpen(false); setShowConfig(true) }}
               >
@@ -404,43 +368,46 @@ function UserMenu() {
                 Configuración
               </button>
 
-              {/* Apariencia expandible */}
               <button
-                className="dropdown-item"
+                className="w-full flex items-center gap-2.5 px-3 py-[9px] rounded-[10px] border-none bg-transparent text-sm font-medium text-[#0c1f3f] cursor-pointer font-sans text-left transition-colors hover:bg-[rgba(26,86,219,0.08)] hover:text-[#1344c4] dark:text-white/70 dark:hover:bg-white/[0.07] dark:hover:text-white [&>svg]:text-[#5580a8] [&:hover>svg]:text-[#1344c4]"
                 type="button"
                 onClick={() => setShowAppearance((v) => !v)}
               >
                 <AppearanceIcon />
                 Apariencia
-                <span className="dropdown-item-badge">{THEME_LABELS[theme]}</span>
+                <span className="ml-auto text-[11px] font-semibold text-[#7a9ab8] bg-[rgba(180,210,240,0.35)] px-2 py-0.5 rounded-[6px] dark:bg-white/[0.08] dark:text-white/40">
+                  {THEME_LABELS[theme]}
+                </span>
               </button>
 
               {showAppearance && (
-                <div className="appearance-options">
+                <div className="flex flex-col gap-0.5 py-1 pl-7 pr-[6px] animate-dropdown">
                   {THEME_OPTIONS.map(({ value, label, icon }) => (
                     <button
                       key={value}
-                      className={`appearance-option${theme === value ? ' appearance-option--active' : ''}`}
+                      className={`appearance-option-glass flex items-center gap-2.5 px-2.5 py-2 rounded-[8px] border-none bg-transparent text-[13px] cursor-pointer font-sans w-full text-left ${theme === value ? 'appearance-option-glass--active' : ''}`}
                       type="button"
                       onClick={() => setTheme(value)}
                     >
                       {icon}
                       {label}
-                      {theme === value && <span className="appearance-check"><CheckIcon /></span>}
+                      {theme === value && (
+                        <span className="ml-auto flex items-center text-[#1344c4] dark:text-[#93c5fd]"><CheckIcon /></span>
+                      )}
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="dropdown-divider" />
+            <div className="h-px bg-[rgba(180,210,240,0.35)] mx-[6px] dark:bg-white/[0.07]" />
 
-            {/* Cerrar sesión */}
-            <div className="dropdown-section">
+            <div className="p-[6px]">
               <button
-                className="dropdown-item dropdown-item--danger"
+                className="w-full flex items-center gap-2.5 px-3 py-[9px] rounded-[10px] border-none bg-transparent text-sm font-medium text-[#dc2626] cursor-pointer font-sans text-left transition-colors hover:bg-[rgba(220,38,38,0.08)] hover:text-[#b91c1c]"
                 type="button"
                 onClick={() => navigate('/login')}
+                data-testid="btn-logout"
               >
                 <LogoutMenuIcon />
                 Cerrar sesión
@@ -450,10 +417,7 @@ function UserMenu() {
         )}
       </div>
 
-      {showConfig && createPortal(
-        <ConfigModal onClose={() => setShowConfig(false)} />,
-        document.body
-      )}
+      {showConfig && createPortal(<ConfigModal onClose={() => setShowConfig(false)} />, document.body)}
     </>
   )
 }
@@ -472,19 +436,18 @@ const NAV_ITEMS = [
 
 export function DashboardLayout() {
   return (
-    <div className="dashboard-layout">
+    <div className="dashboard-bg flex h-dvh overflow-hidden p-4 gap-[14px]">
 
-      {/* ── Sidebar  */}
-      <aside className="dashboard-sidebar">
+      {/* ── Sidebar ── */}
+      <aside className="sidebar-glass group w-[72px] hover:w-[220px] flex flex-col items-center rounded-[24px] pt-[10px] pb-4 relative z-10 overflow-hidden transition-[width] duration-[250ms] ease-in-out">
 
-        <div className="sidebar-brand">
-          <div className="sidebar-logo-box">
+        <div className="w-full h-[62px] flex items-center justify-center shrink-0 border-b border-white/[0.07] mb-2">
+          <div className="sidebar-logo-glass w-[42px] h-[42px] rounded-[13px] flex items-center justify-center">
             <LogoIcon />
           </div>
         </div>
 
-        {/* Nav */}
-        <nav className="sidebar-nav">
+        <nav className="flex-1 flex flex-col items-stretch gap-1 py-1 pl-2 w-full">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.path}
@@ -492,51 +455,74 @@ export function DashboardLayout() {
               end={item.end}
               title={item.label}
               className={({ isActive }) =>
-                `nav-item${isActive ? ' nav-item--active' : ''}`
+                `relative w-full h-[46px] flex items-center justify-start pl-[22px] gap-[14px] rounded-[13px] no-underline border-none cursor-pointer font-sans transition-colors duration-[180ms] ${
+                  isActive
+                    ? 'nav-item-active'
+                    : 'bg-transparent text-white/40 hover:text-white/75 hover:bg-white/[0.08]'
+                }`
               }
             >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
+              {({ isActive }) => (
+                <>
+                  <span className="flex items-center justify-center shrink-0 w-[18px] h-[18px]">
+                    {item.icon}
+                  </span>
+                  <span className={`opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity duration-[200ms] text-sm font-semibold ${isActive ? 'text-[#0c1f3f] dark:text-[#93c5fd]' : 'text-white/85'}`}>
+                    {item.label}
+                  </span>
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
 
-        {/* Logout(fondo) */}
-        <div className="sidebar-bottom">
-          <button className="nav-item logout-btn" type="button" title="Cerrar sesión">
+        <div className="flex flex-col items-center px-2.5 w-full border-t border-white/[0.07] pt-3 mt-2">
+          <button
+            className="w-full h-[46px] flex items-center justify-start pl-[22px] gap-[14px] rounded-[13px] border-none bg-transparent cursor-pointer font-sans text-white/35 hover:text-[#f87171] hover:bg-[rgba(248,113,113,0.10)] transition-colors duration-[180ms]"
+            type="button"
+            title="Cerrar sesión"
+            data-testid="sidebar-logout"
+          >
             <LogoutIcon />
           </button>
         </div>
       </aside>
 
       {/* ── Main ── */}
-      <div className="dashboard-main">
+      <div className="flex-1 flex flex-col overflow-visible min-w-0">
 
-        {/* ── Header ── */}
-        <header className="dashboard-header">
-          <div className="header-left">
-            <button className="period-selector" type="button">
-              <CalendarIcon />
-              <span>++Definir+++</span>
+        <header className="header-glass h-[62px] shrink-0 flex items-center justify-between px-6 gap-3 rounded-2xl mb-0.5">
+          <div className="flex items-center">
+            <button
+              className="period-selector-glass flex items-center gap-2 px-[14px] py-2 rounded-[10px] text-sm font-semibold text-[#0c1f3f] cursor-pointer font-sans border-none"
+              type="button"
+              data-testid="period-selector"
+            >
+              <span className="text-[#5580a8]"><CalendarIcon /></span>
+              <span>Definir período</span>
               <ChevronsIcon />
             </button>
           </div>
 
-          <div className="header-center">
-            <button className="export-btn" type="button">
+          <div className="flex items-center">
+            <button
+              className="btn-export-glass flex items-center gap-2 px-[18px] py-[9px] rounded-[10px] border-none text-sm font-bold font-sans cursor-pointer tracking-[0.2px]"
+              type="button"
+              data-testid="btn-export"
+            >
               <DownloadIcon />
               Exportar Reporte
             </button>
           </div>
 
-          <div className="header-right">
+          <div className="flex items-center gap-3 ml-auto">
             <HeaderPanel variant="alerts" />
             <HeaderPanel variant="notifications" />
             <UserMenu />
           </div>
         </header>
 
-        <main className="dashboard-content">
+        <main className="custom-scrollbar flex-1 overflow-y-auto px-6 py-7" data-testid="dashboard-content">
           <Outlet />
         </main>
       </div>
