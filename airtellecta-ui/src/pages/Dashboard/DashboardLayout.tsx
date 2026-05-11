@@ -369,7 +369,7 @@ function UserMenu() {
 
 const NAV_ITEMS = [
   { label: 'Resumen Nacional', path: '/dashboard',            end: true  },
-  { label: 'Mapa de Calor',    path: '/dashboard/mapa',       end: false },
+  { label: 'Mapa de Vulnerabilidad',    path: '/dashboard/mapa',       end: false },
   { label: 'Tendencias',       path: '/dashboard/tendencias', end: false },
   { label: 'Campañas',         path: '/dashboard/campanas',   end: false },
   { label: 'Fuentes',          path: '/dashboard/fuentes',    end: false },
@@ -406,12 +406,6 @@ export function DashboardLayout() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="period-selector-glass flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-[13px] font-semibold text-[#0c1f3f] dark:text-white/80 cursor-pointer font-sans border-none" type="button" data-testid="filter-year">
-              Año 2025 <ChevronDownIcon />
-            </button>
-            <button className="period-selector-glass flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-[13px] font-semibold text-[#0c1f3f] dark:text-white/80 cursor-pointer font-sans border-none" type="button" data-testid="filter-region">
-              Región <ChevronDownIcon />
-            </button>
             <div className="w-px h-5 bg-[rgba(180,210,240,0.50)] dark:bg-white/10 mx-1" />
             <HeaderPanel variant="alerts" />
             <HeaderPanel variant="notifications" />

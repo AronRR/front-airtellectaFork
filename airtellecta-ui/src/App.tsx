@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { LoginPage } from './pages/Login/LoginPage'
 import { DashboardLayout } from './pages/Dashboard/DashboardLayout'
 import { ResumenNacional } from './pages/Dashboard/ResumenNacional'
+import { MapaCalor }       from './pages/Dashboard/MapaCalor'
 
 export default function App() {
   return (
@@ -11,7 +12,7 @@ export default function App() {
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<ResumenNacional />} />
-        <Route path="mapa"        element={<div />} />
+        <Route path="mapa"        element={<MapaCalor />} />
         <Route path="tendencias"  element={<div />} />
         <Route path="campanas"    element={<div />} />
         <Route path="fuentes"     element={<div />} />
